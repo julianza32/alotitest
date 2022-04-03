@@ -1,0 +1,56 @@
+<p-card header="Categorias" [style]="{'width': '100%'}">
+    <p-table [value]="listCategoria" responsiveLayout="scroll">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Id producto</th>
+                <th>Nombre</th>
+                <th>Categoria</th>
+                <th>Acciones <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded"
+                    (click)="showModalDialog(); setCategoria();"></button></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-categoria>
+            <tr>
+                <td>{{categoria.IDCategoria}}</td>
+                <td>{{categoria.Nombre}}</td>
+                <td>{{categoria.Descripcion}}</td>
+                <td> <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded"
+                        (click)="showModalDialog(); setCategoria(categoria);"></button>
+                        <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger"
+                        (click)="confirm($event); setId(categoria.IDCategoria);"></button>
+
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-card>
+<p-confirmPopup></p-confirmPopup>
+<p-dialog header={{titulo}} [(visible)]="displayModal" [modal]="true" [style]="{width: '50vw'}" [draggable]="false"
+    [resizable]="false">
+    <form [formGroup]="formCategoria" class="flex flex-wrap flex-row  justify-content-center">
+        <div class="field w-12">
+            <label for="Nombre" class="block">Nombre</label>
+            <input id="Nombre" class="w-12" type="text" aria-describedby="username1-help" formControlName="Nombre"
+                pInputText />
+
+            <div *ngIf="formCategoria.get('Nombre')?.hasError('required')"><small id="username2-help"
+                    class="p-error block">Nombre es requerido.</small>
+            </div>
+
+        </div>
+        <div class="field w-12">
+            <label for="Descripcion" class="block">Descripción</label>
+            <textarea id="Descripcion" class="w-12" formControlName="Descripcion" pInputTextarea></textarea>
+           
+
+            <div *ngIf="formCategoria.get('Descripcion')?.hasError('required')"><small id="username2-help"
+                    class="p-error block">Descripción es requerido.</small>
+            </div>
+            
+        </div>
+        
+    </form>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (click)="displayModal=false; guardar(); " label="Ok" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>

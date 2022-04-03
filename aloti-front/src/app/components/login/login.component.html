@@ -1,0 +1,33 @@
+<div class="flex justify-content-center align-items-center  h-screen" >
+
+    <p-card header="Inicio de sesión" [style]="{'width': '25rem', 'margin-bottom': '2em'}">
+        <form [formGroup]="login" class="flex flex-wrap flex-row  justify-content-center">
+            <div class="field w-12">
+                <label for="correo" class="block">Correo</label>
+                <input id="correo" class="w-12" type="username" aria-describedby="username1-help"
+                    formControlName="Correo" pInputText />
+
+                <div *ngIf="login.get('Correo')?.hasError('required')"><small id="username2-help"
+                        class="p-error block">Correo es requerido.</small></div>
+                <div *ngIf="login.get('Correo')?.hasError('email')"><small id="username2-help"
+                        class="p-error block">Correo
+                        no es valido.</small></div>
+
+
+            </div>
+            <div class="field w-12">
+                <label for="contrasena" class="block">Contraseña</label>
+                <input id="contrasena" class="w-12" type="password" aria-describedby="username1-help" pInputText
+                    formControlName="Contrasena" />
+                <div *ngIf="login.get('contrasena')?.hasError('required')"><small id="username2-help"
+                        class="p-error block">Correo es requerido.</small></div>
+            </div>
+            <div class="">
+                <p-button label="Iniciar sesión" type="submit" (click)="iniciarSe()" icon="pi pi-send" styleClass="p-button-sm" iconPos="right"></p-button>
+            </div>
+            <div class="text-center mt-2 w-12">
+                <a [routerLink]="[ '/registro']"> Registrese</a>
+            </div>
+        </form>
+    </p-card>
+</div>

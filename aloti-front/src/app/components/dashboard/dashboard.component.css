@@ -1,0 +1,4 @@
+.w-app-contenedor{
+   max-width:calc(100vw - 13.5rem) ;
+   width: calc(100vw - 13.5rem);
+}

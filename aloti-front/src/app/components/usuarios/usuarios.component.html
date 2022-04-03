@@ -1,0 +1,73 @@
+<p-card header="Usuarios" [style]="{'width': '100%'}">
+    <p-table [value]="listUsuarios" responsiveLayout="scroll">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Id Usuario</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Correo</th>
+                <th>Acciones <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded"
+                    (click)="showModalDialog(); setUsuario();"></button></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-user>
+            <tr>
+                <td>{{user.IDUsuario}}</td>
+                <td>{{user.Nombres}}</td>
+                <td>{{user.Apellidos}}</td>
+                <td>{{user.Correo}}</td>
+                <td> <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded"
+                        (click)="showModalDialog(); setUsuario(user);"></button>
+                        <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger"
+                        (click)="confirm($event); setId(user.IDUsuario);"></button>
+
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-card>
+<p-confirmPopup></p-confirmPopup>
+
+
+<p-dialog header={{titulo}} [(visible)]="displayModal" [modal]="true" [style]="{width: '50vw'}" [draggable]="false"
+    [resizable]="false">
+    <form [formGroup]="formUsuario" class="flex flex-wrap flex-row  justify-content-center">
+        <div class="field p-1 w-6">
+            <label for="Nombre" class="block">Nombres</label>
+            <input id="Nombre" class="w-12" type="text" aria-describedby="username1-help" formControlName="Nombres"
+                pInputText />
+
+            <div *ngIf="formUsuario.get('Nombres')?.hasError('required')"><small id="username2-help"
+                    class="p-error block">Nombres es requerido.</small>
+            </div>
+        </div>
+        <div class="field p-1 w-6">
+            <label for="Apellido" class="block">Apellidos</label>
+            <input id="Apellido" class="w-12" type="text" aria-describedby="username1-help" formControlName="Apellidos"
+                pInputText />
+
+            <div *ngIf="formUsuario.get('Apellidos')?.hasError('required')"><small id="username2-help"
+                    class="p-error block">Apellidos es requerido.</small>
+            </div>
+        </div>
+        <div class="field p-1 w-6">
+            <label for="Correo" class="block">Correo</label>
+            <input id="Correo" class="w-12" type="text" aria-describedby="username1-help" formControlName="Correo"
+                pInputText />
+
+            <div *ngIf="formUsuario.get('Correo')?.hasError('required')"><small id="username2-help"
+                    class="p-error block">Correo es requerido.</small>
+            </div>
+        </div>
+        <div class="field p-1 w-6">
+            <label for="Contrasena" class="block">Contraseña</label>
+            <input id="Contrasena" class="w-12" type="password" aria-describedby="username1-help" formControlName="Contrasena"
+                pInputText />
+            
+        </div>
+        
+    </form>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (click)="displayModal=false; guardar(); " label="Ok" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>
